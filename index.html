@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ᯓ©Bandrak_Shop_Official ✰</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            background-color: #0f0f1a;
+            color: #fff;
+            overflow-x: hidden;
+            background-image: url('https://img1.pixhost.to/images/7037/619560206_imgtmp.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0f0f1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .loading-screen h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+
+        .loading-screen p {
+            font-size: 16px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 4px;
+            background-color: #333;
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            transition: width 3s ease;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .shop-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .payment-method {
+            background: rgba(30, 30, 50, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+
+        .payment-method img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover img {
+            transform: scale(1.1);
+        }
+
+        .payment-method h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .payment-method p {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .payment-details {
+            display: none;
+            background: rgba(30, 30, 50, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .payment-info {
+            margin-bottom: 15px;
+        }
+
+        .payment-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #ff6b6b;
+        }
+
+        .payment-info p {
+            font-size: 14px;
+            color: #ddd;
+            word-break: break-all;
+        }
+
+        .qris-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .qris-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .qris-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen">
+        <img src="https://img1.pixhost.to/images/7037/619563642_imgtmp.jpg" alt="Loading">
+        <h1>ᯓ©Bandrak_Shop_Official ✰</h1>
+        <p>Loading payment gateway...</p>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;">
+        <div class="header">
+            <img src="https://img1.pixhost.to/images/7037/619563642_imgtmp.jpg" alt="Bandrak Shop Logo" class="logo">
+            <h1 class="shop-name">ᯓ©Bandrak_Shop_Official ✰</h1>
+            <a href="https://wa.me/+62895406196907" class="contact-link">Contact Bandrak Shop</a>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method" onclick="showPaymentDetails('dana')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_DANA.svg" alt="DANA">
+                <h3>DANA</h3>
+                <p>Click to show payment details</p>
+                <div class="payment-details" id="dana-details">
+                    <div class="payment-info">
+                        <h4>Payment Number:</h4>
+                        <p>085773652775</p>
+                    </div>
+                    <div class="payment-info">
+                        <h4>Account Name:</h4>
+                        <p>Indra Gunawan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-method" onclick="showPaymentDetails('ovo')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO">
+                <h3>OVO</h3>
+                <p>Click to show payment details</p>
+                <div class="payment-details" id="ovo-details">
+                    <div class="payment-info">
+                        <h4>Payment Number:</h4>
+                        <p>0895406196907</p>
+                    </div>
+                    <div class="payment-info">
+                        <h4>Account Name:</h4>
+                        <p>Indra Gunawan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-method" onclick="showPaymentDetails('gopay')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GOPAY">
+                <h3>GOPAY</h3>
+                <p>Click to show payment details</p>
+                <div class="payment-details" id="gopay-details">
+                    <div class="payment-info">
+                        <h4>Payment Number:</h4>
+                        <p>085133499437</p>
+                    </div>
+                    <div class="payment-info">
+                        <h4>Account Name:</h4>
+                        <p>Indra Gunawan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-method" onclick="showPaymentDetails('qris')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="QRIS">
+                <h3>QRIS</h3>
+                <p>Click to show payment details</p>
+                <div class="payment-details" id="qris-details">
+                    <div class="payment-info">
+                        <h4>QR Code Payment</h4>
+                        <p>Scan the QR code below</p>
+                    </div>
+                    <div class="qris-container">
+                        <img src="https://j.top4top.io/p_34713xwlx1.jpg" alt="QRIS Code" class="qris-image">
+                        <a href="https://j.top4top.io/p_34713xwlx1.jpg" class="download-btn" download="Bandrak_Shop_QRIS.jpg">Download QR Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2023 ᯓ©Bandrak_Shop_Official ✰. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Loading screen with 3 second delay
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingProgress = document.querySelector('.loading-progress');
+            const loadingScreen = document.querySelector('.loading-screen');
+            const container = document.querySelector('.container');
+            
+            // Animate progress bar
+            loadingProgress.style.width = '100%';
+            
+            // After 3 seconds, hide loading screen and show content
+            setTimeout(function() {
+                loadingScreen.style.opacity = '0';
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    container.style.display = 'block';
+                    
+                    // Animate payment methods one by one
+                    const paymentMethods = document.querySelectorAll('.payment-method');
+                    paymentMethods.forEach((method, index) => {
+                        setTimeout(() => {
+                            method.style.opacity = '1';
+                            method.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                }, 500);
+            }, 3000);
+        });
+
+        // Show payment details when method is clicked
+        function showPaymentDetails(method) {
+            // Hide all payment details first
+            document.querySelectorAll('.payment-details').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            // Show the selected payment details
+            const details = document.getElementById(`${method}-details`);
+            details.classList.add('active');
+            
+            // Scroll to the details if needed
+            details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Copy payment number to clipboard when clicked
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('payment-info') {
+                const textToCopy = e.target.querySelector('p').textContent;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = e.target.querySelector('p').textContent;
+                    e.target.querySelector('p').textContent = 'Copied to clipboard!';
+                    setTimeout(() => {
+                        e.target.querySelector('p').textContent = originalText;
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
